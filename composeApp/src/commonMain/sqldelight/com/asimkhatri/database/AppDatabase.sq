@@ -1,8 +1,8 @@
 CREATE TABLE player (
-    id TEXT PRIMARY KEY,
-    name TEXT,
-    createdAt INTEGER,
-    updatedAt INTEGER
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
 );
 
 CREATE INDEX player_name ON player(name);
@@ -10,11 +10,20 @@ CREATE INDEX player_name ON player(name);
 addPlayer:
 INSERT INTO player(id, name, createdAt, updatedAt) VALUES (?,?, ? , ?);
 
+deletePlayerById:
+DELETE FROM player WHERE id = ?;
+
+getAllPlayers:
+SELECT * FROM player;
+
+updatePlayerById:
+UPDATE player SET name = ?, updatedAt = ? WHERE id = ?;
+
 CREATE TABLE team (
-    id TEXT PRIMARY KEY,
-    name TEXT,
-    createdAt INTEGER,
-    updatedAt INTEGER
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
 );
 
 CREATE INDEX team_name ON team(name);
@@ -22,59 +31,98 @@ CREATE INDEX team_name ON team(name);
 addTeam:
 INSERT INTO team(id, name, createdAt, updatedAt) VALUES (?,?, ? , ?);
 
+deleteTeamById:
+DELETE FROM team WHERE id = ?;
+
+updateTeamById:
+UPDATE team SET name = ?, updatedAt = ? WHERE id = ?;
+
+gettAllTeams:
+SELECT * FROM team;
+
 CREATE TABLE playerTeam (
-    id TEXT PRIMARY KEY,
-    player_id TEXT REFERENCES player (id),
-    team_id   TEXT REFERENCES team (id)
+    id TEXT NOT NULL PRIMARY KEY,
+    player_id TEXT REFERENCES player (id) NOT NULL,
+    team_id TEXT REFERENCES team (id) NOT NULL
 );
 
 addPlayerTeam:
 INSERT INTO playerTeam(id, player_id, team_id) VALUES (?, ?, ?);
 
+deletePlayerByTeamId:
+DELETE FROM playerTeam WHERE player_id = ? AND team_id = ?;
+
+getAllPlayersForTeam:
+SELECT * FROM playerTeam WHERE team_id = ?;
+
+getAllTeamsForPlayer:
+SELECT * FROM playerTeam WHERE player_id = ?;
+
 CREATE TABLE ground (
-    id TEXT PRIMARY KEY,
-    name TEXT,
-    createdAt INTEGER,
-    updatedAt INTEGER
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
 );
 
 addGround:
 INSERT INTO ground(id, name, createdAt, updatedAt) VALUES (?,?, ? , ?);
 
+deleteGroundById:
+DELETE FROM ground WHERE id = ?;
+
+updateGroundById:
+UPDATE ground SET name = ?, updatedAt = ? WHERE id = ?;
+
+getAllGrounds:
+SELECT * FROM ground;
+
 CREATE TABLE match (
-    id TEXT PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     team_one_id TEXT REFERENCES team (id) NOT NULL,
     team_two_id TEXT REFERENCES team (id) NOT NULL,
     status INTEGER NOT NULL,
-    settings_id TEXT REFERENCES matchSettings (id),
-    ground_id TEXT REFERENCES match (id),
-    createdAt INTEGER,
-    updatedAt INTEGER
+    settings_id TEXT REFERENCES matchSettings (id) NOT NULL,
+    ground_id TEXT REFERENCES match (id) NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
 );
 
 addMatch:
 INSERT INTO match(id, team_one_id, team_two_id,status, settings_id, ground_id, createdAt, updatedAt)
 VALUES (?,?, ? , ?, ?, ?,?, ?);
 
+deleteMatchById:
+DELETE FROM match WHERE id = ?;
+
+getAllMatches:
+SELECT * FROM match;
+
 CREATE TABLE inning (
-    id TEXT PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     number INTEGER NOT NULL,
     match_id TEXT REFERENCES match (id),
     team_id TEXT REFERENCES team (id),
-    createdAt INTEGER,
-    updatedAt INTEGER
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
 );
 
 addInning:
 INSERT INTO inning(id,number, match_id, team_id, createdAt, updatedAt)
 VALUES (?, ?, ? , ?, ?, ?);
 
+deleteInningById:
+DELETE FROM inning WHERE id = ?;
+
+getInningsByMatchId:
+SELECT * FROM inning WHERE match_id = ?;
+
 CREATE TABLE matchSettings (
-    id TEXT PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     type INTEGER NOT NULL,
-    overs INTEGER,
-    createdAt INTEGER,
-    updatedAt INTEGER
+    overs INTEGER NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL
 );
 
 addMatchSettings:
