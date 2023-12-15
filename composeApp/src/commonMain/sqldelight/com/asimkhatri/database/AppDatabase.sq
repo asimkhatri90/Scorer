@@ -1,0 +1,82 @@
+CREATE TABLE player (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    createdAt INTEGER,
+    updatedAt INTEGER
+);
+
+CREATE INDEX player_name ON player(name);
+
+addPlayer:
+INSERT INTO player(id, name, createdAt, updatedAt) VALUES (?,?, ? , ?);
+
+CREATE TABLE team (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    createdAt INTEGER,
+    updatedAt INTEGER
+);
+
+CREATE INDEX team_name ON team(name);
+
+addTeam:
+INSERT INTO team(id, name, createdAt, updatedAt) VALUES (?,?, ? , ?);
+
+CREATE TABLE playerTeam (
+    id TEXT PRIMARY KEY,
+    player_id TEXT REFERENCES player (id),
+    team_id   TEXT REFERENCES team (id)
+);
+
+addPlayerTeam:
+INSERT INTO playerTeam(id, player_id, team_id) VALUES (?, ?, ?);
+
+CREATE TABLE ground (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    createdAt INTEGER,
+    updatedAt INTEGER
+);
+
+addGround:
+INSERT INTO ground(id, name, createdAt, updatedAt) VALUES (?,?, ? , ?);
+
+CREATE TABLE match (
+    id TEXT PRIMARY KEY,
+    team_one_id TEXT REFERENCES team (id) NOT NULL,
+    team_two_id TEXT REFERENCES team (id) NOT NULL,
+    status INTEGER NOT NULL,
+    settings_id TEXT REFERENCES matchSettings (id),
+    ground_id TEXT REFERENCES match (id),
+    createdAt INTEGER,
+    updatedAt INTEGER
+);
+
+addMatch:
+INSERT INTO match(id, team_one_id, team_two_id,status, settings_id, ground_id, createdAt, updatedAt)
+VALUES (?,?, ? , ?, ?, ?,?, ?);
+
+CREATE TABLE inning (
+    id TEXT PRIMARY KEY,
+    number INTEGER NOT NULL,
+    match_id TEXT REFERENCES match (id),
+    team_id TEXT REFERENCES team (id),
+    createdAt INTEGER,
+    updatedAt INTEGER
+);
+
+addInning:
+INSERT INTO inning(id,number, match_id, team_id, createdAt, updatedAt)
+VALUES (?, ?, ? , ?, ?, ?);
+
+CREATE TABLE matchSettings (
+    id TEXT PRIMARY KEY,
+    type INTEGER NOT NULL,
+    overs INTEGER,
+    createdAt INTEGER,
+    updatedAt INTEGER
+);
+
+addMatchSettings:
+INSERT INTO matchSettings(id, type, overs, createdAt, updatedAt)
+VALUES (?,?, ?, ?,?);

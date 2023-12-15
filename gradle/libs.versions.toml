@@ -15,6 +15,12 @@ compose-compiler = "1.5.5"
 compose-plugin = "1.5.11"
 junit = "4.13.2"
 kotlin = "1.9.21"
+kotlinx-datetime = "0.5.0"
+kotlinx-coroutines = "1.7.3"
+sql-delight = "2.0.1"
+koin = "3.5.0"
+koin-compose = "1.1.0"
+stately-common = "2.0.6"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -32,9 +38,20 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+sql-delight-android = {module = "app.cash.sqldelight:android-driver", version.ref = "sql-delight"}
+sql-delight-native = {module = "app.cash.sqldelight:native-driver", version.ref = "sql-delight"}
+sql-delight-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sql-delight" }
+koin-core = {module = "io.insert-koin:koin-core", version.ref = "koin"}
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
+stately-common = {module = "co.touchlab:stately-common", version.ref = "stately-common"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+sqlDelight = {id = "app.cash.sqldelight", version.ref = "sql-delight"}
