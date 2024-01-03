@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -36,6 +37,7 @@ kotlin {
             implementation(libs.sql.delight.android)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.android)
+            implementation(libs.decompose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -51,6 +53,9 @@ kotlin {
             // Need to add the stately common lib because of a compile time error in running ios app
             implementation(libs.stately.common)
             implementation(libs.sql.delight.extensions)
+            implementation(libs.decompose)
+            implementation(libs.decompose.jetbrains)
+            implementation(libs.kotlinx.serialization.json)
         }
         iosMain.dependencies {
             implementation(libs.sql.delight.native)
